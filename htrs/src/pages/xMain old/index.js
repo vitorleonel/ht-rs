@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import Teacher from './Teacher';
 import School from './School';
@@ -6,7 +6,7 @@ import Alumni from './Alumni';
 import { Container, Header } from '../../components';
 
 const Main = props => {
-  // const [userType, setUserType] = useState('school');
+  const [userType, setUserType] = useState('school');
 
   const handleUserType = () => {
     const type = props.location.pathname;
@@ -18,17 +18,7 @@ const Main = props => {
   return (
     <>
       <Header />
-      <Container>
-        {/* <div style={{ background: 'orange' }}>
-          <button type="button" onClick={() => setUserType('teacher')}>
-            Palestrante
-          </button>
-          <button type="button" onClick={() => setUserType('school')}>
-            Escola
-          </button>
-        </div> */}
-        {handleUserType()}
-      </Container>
+      <Container>{handleUserType()}</Container>
     </>
   );
 };
