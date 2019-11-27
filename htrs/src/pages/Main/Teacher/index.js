@@ -96,12 +96,11 @@ const Teacher = () => {
       ) : (
         <Container>
           <CardList>
-            <h4>Palestras Disponíveis</h4>
             <br />
             {classesList.map(({ id, course, date, school }) => (
               <CardItem key={id} date={date}>
                 <div className="item-header">
-                  <span>TODO Calc mes</span>
+                  <span>Palestra disponível</span>
                 </div>
                 <div className="item-body">
                   <div className="item-body-avatar">
