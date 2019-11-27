@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Home = () => {
-  return (
-    <div>
-      <h1>hello world</h1>
-      <Link to="/main">main</Link>
-    </div>
-  );
+const Home = props => {
+  useEffect(() => {
+    props.history.push('/login');
+  }, []);
+
+  return <div />;
 };
 
 export default Home;

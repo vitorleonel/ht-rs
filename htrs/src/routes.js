@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Main from './pages/Main';
 import Login from './pages/Login';
 
+import Student from './pages/Student';
+
 export default function Routes() {
   return (
     <Switch>
@@ -14,6 +16,8 @@ export default function Routes() {
       <Route path="/main" exact component={Main} />
       <Route path="/teacher" exact component={Main} />
       <Route path="/school" exact component={Main} />
+      <Route path="/student" exact component={Student} />
+
       <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>
   );
