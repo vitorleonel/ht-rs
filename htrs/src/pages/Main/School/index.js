@@ -125,7 +125,7 @@ const School = () => {
         />
       )}
       <Container>
-        <CardList>
+        <CardList className="container">
           {classesList.map(({ id, tecnologia, descricao, data, instrutor }) => (
             <CardItem key={id} date={data}>
               <div className="item-header">
@@ -142,7 +142,7 @@ const School = () => {
                 <div className="item-body-card date">
                   <span className="item-body-card-title">DATA</span>
                   <span onClick={() => handleDataModal(data)}>
-                    {data ? data : <DateButton>Agendar</DateButton>}
+                    {data || <DateButton>Agendar</DateButton>}
                   </span>
                 </div>
 

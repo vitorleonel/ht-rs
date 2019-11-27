@@ -19,6 +19,11 @@ export const Container = styled.div`
     font-weight: bold;
   }
 
+  .header-menu {
+    margin-left: auto;
+    margin-right: 1.5rem;
+  }
+
   .profile-btn {
     width: 110px;
     font-size: 1rem;
@@ -48,5 +53,7 @@ export const ProfileBtn = styled.button`
 
 export const HeaderLink = styled(Link)`
   text-decoration: none;
+  color: #414141;
   cursor: pointer;
+  margin-left: 1.5rem;
 `;

@@ -32,4 +32,9 @@ export default createGlobalStyle`
   button {
     cursor: pointer
   }
+
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+  }
 `;

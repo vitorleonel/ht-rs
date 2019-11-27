@@ -68,7 +68,7 @@ const Teacher = () => {
         <br />
         <br />
       </span>
-      <div className="modal-user-contact"></div>
+      <div className="modal-user-contact" />
     </ModalBody>
   );
 
@@ -101,7 +101,7 @@ const Teacher = () => {
         />
       )}
       <Container>
-        <CardList>
+        <CardList className="container">
           <h4>Palestras Disponíveis</h4>
           <br />
           {classesList.map(({ id, tecnologia, descricao, data, instrutor }) => (

@@ -21,31 +21,28 @@ export const CardList = styled.ul`
 `;
 
 export const CardItem = styled.li`
-  width: 90%;
-  background: #eee;
+  width: 100%;
+  background: #fff;
   &:hover {
     background: ${({ date }) => (date ? '#fff' : '#eee')};
   }
-  height: 200px;
   border: 1px solid white;
   margin: 10px auto;
   border-radius: 5px;
   list-style-type: none;
-  padding: 8px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.8rem;
 
   .item-header {
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #eee;
     text-align: left;
-    padding: 3px;
+    padding: 0 0 16px 0;
     width: 100%;
 
     span {
-      margin-left: 5px;
       font-weight: bold;
       text-transform: uppercase;
     }
@@ -65,7 +62,7 @@ export const CardItem = styled.li`
       align-items: flex-start;
       height: 80%;
       width: 100%;
-      padding: 10px;
+      padding: 16px;
 
       .item-body-card-title {
         text-transform: uppercase;
@@ -85,6 +82,7 @@ export const CardItem = styled.li`
 
     .last {
       width: 250px;
+      border: 1px solid transparent;
       &:hover {
         cursor: ${({ date }) => (date ? 'pointer' : 'default')};
         border: ${({ date }) => (date ? '1px solid rgba(0,0,0,0.3)' : 'none')};
@@ -102,14 +100,13 @@ export const CardItem = styled.li`
   }
 
   .join-button {
-    width: 90%;
-    margin: 0 auto;
+    width: 100%;
     background: #00bcd4;
-    border-radius: 5px;
+    border-radius: 6px;
     border: none;
-    height: 40px;
+    height: 64px;
     color: #eee;
-    font-size: 0.8rem;
+    font-size: 16px;
     font-weight: bold;
   }
 `;
@@ -136,7 +133,6 @@ export const ModalHeader = styled.div`
 
   span {
     color: #aaa;
-    font-size: 0.8rem;
   }
 
   .modal-header-teacher {

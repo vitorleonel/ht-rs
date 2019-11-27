@@ -12,17 +12,21 @@ const Header = props => {
   return (
     <Container>
       <div className="header-left">TechNaEscola</div>
-      {type === '/teacher' && (
-        <>
-          <HeaderLink to="#">Minha Agenda</HeaderLink>
-          <HeaderLink to="#">Palestras Disponíveis</HeaderLink>
-        </>
-      )}
-      {type === '/school' && (
-        <>
-          <HeaderLink to="#">Meu Cronograma</HeaderLink>
-        </>
-      )}
+
+      <div className="header-menu">
+        {type === '/teacher' && (
+          <>
+            <HeaderLink to="#">Minha Agenda</HeaderLink>
+            <HeaderLink to="#">Palestras Disponíveis</HeaderLink>
+          </>
+        )}
+        {type === '/school' && (
+          <>
+            <HeaderLink to="#">Meu Cronograma</HeaderLink>
+          </>
+        )}
+      </div>
+
       <div className="profile-btn">
         <AvatarImg src={user} alt="avatar" />
         <ProfileBtn onClick={() => setShowMenu(!showMenu)}>Perfil</ProfileBtn>
