@@ -45,7 +45,7 @@ const Teacher = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [classesList, setClassesList] = useState(fakeList);
-  // TODO fetch
+
   useEffect(() => {
     const fetchTalks = async () => {
       const talks = await api.get('/talks');

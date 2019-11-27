@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaGithub, FaPhone } from 'react-icons/fa';
-import { Overlay } from '../../../components';
+import { Overlay, OverlayLoader } from '../../../components';
 import { user } from '../../../assets/images';
 import {
   Container,
@@ -11,6 +11,7 @@ import {
   DateButton,
   ModalHeader,
 } from './styles';
+import api from '../../../services/api';
 
 const fakeList = [
   {
@@ -45,8 +46,19 @@ const School = () => {
   const [showModal, setShowModal] = useState(false);
   const [showUserModal, setShowUserModal] = useState(false);
   const [classesList, setClassesList] = useState(fakeList);
-  // TODO fetch
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchTalks = async () => {
+      const talks = await api.get('/talks');
+      console.log('talks', talks.data[0]);
+      // setClassesList(talks.data);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    };
+    fetchTalks();
+  }, []);
   const ModalContent = (
     <ModalBody>
       <span>DATA</span>
@@ -124,44 +136,52 @@ const School = () => {
           Footer={UserModalFooter}
         />
       )}
-      <Container>
-        <CardList>
-          {classesList.map(({ id, tecnologia, descricao, data, instrutor }) => (
-            <CardItem key={id} date={data}>
-              <div className="item-header">
-                <span>TODO Calc mes</span>
-              </div>
-              <div className="item-body">
-                <div className="item-body-avatar">
-                  <AvatarImg src={user} alt="avatar" />
-                </div>
-                <div className="item-body-card tech-text">
-                  <span className="item-body-card-title">{tecnologia}</span>
-                  <span>{descricao}</span>
-                </div>
-                <div className="item-body-card date">
-                  <span className="item-body-card-title">DATA</span>
-                  <span onClick={() => handleDataModal(data)}>
-                    {data ? data : <DateButton>Agendar</DateButton>}
-                  </span>
-                </div>
+      {loading ? (
+        <OverlayLoader loading={loading} />
+      ) : (
+        <Container>
+          <CardList>
+            {classesList.map(
+              ({ id, tecnologia, descricao, data, instrutor }) => (
+                <CardItem key={id} date={data}>
+                  <div className="item-header">
+                    <span>TODO Calc mes</span>
+                  </div>
+                  <div className="item-body">
+                    <div className="item-body-avatar">
+                      <AvatarImg src={user} alt="avatar" />
+                    </div>
+                    <div className="item-body-card tech-text">
+                      <span className="item-body-card-title">{tecnologia}</span>
+                      <span>{descricao}</span>
+                    </div>
+                    <div className="item-body-card date">
+                      <span className="item-body-card-title">DATA</span>
+                      <span onClick={() => handleDataModal(data)}>
+                        {data ? data : <DateButton>Agendar</DateButton>}
+                      </span>
+                    </div>
 
-                <div
-                  className="item-body-card last"
-                  onClick={() => setShowUserModal(true)}
-                >
-                  {data && (
-                    <>
-                      <span className="item-body-card-title">Instrutor</span>
-                      <span>{instrutor}</span>
-                    </>
-                  )}
-                </div>
-              </div>
-            </CardItem>
-          ))}
-        </CardList>
-      </Container>
+                    <div
+                      className="item-body-card last"
+                      onClick={() => setShowUserModal(true)}
+                    >
+                      {data && (
+                        <>
+                          <span className="item-body-card-title">
+                            Instrutor
+                          </span>
+                          <span>{instrutor}</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </CardItem>
+              )
+            )}
+          </CardList>
+        </Container>
+      )}
     </>
   );
 };
