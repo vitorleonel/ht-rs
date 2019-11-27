@@ -16,7 +16,7 @@ export default function Routes() {
       <Route path="/main" exact component={Main} />
       <Route path="/teacher" exact component={Main} />
       <Route path="/school" exact component={Main} />
-      <Route path="/student" exact component={Student} />
+      <Route path="/student/:hash" exact component={Student} />
 
       <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>
