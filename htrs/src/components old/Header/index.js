@@ -4,7 +4,7 @@ import { user } from '../../assets/images';
 import { Container, AvatarImg, ProfileBtn, HeaderLink } from './styles';
 
 const Header = props => {
-  // const [userData, setUserData] = useState({ name: 'aaaa' });
+  const [userData, setUserData] = useState({ name: 'aaaa' });
   const [showMenu, setShowMenu] = useState(false);
   // fetch
   const type = props.location.pathname;

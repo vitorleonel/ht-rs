@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { user } from '../../../assets/images';
-import { Overlay } from '../../../components';
+import { Overlay, OverlayLoader } from '../../../components';
 import {
   Container,
   CardList,
   CardItem,
   AvatarImg,
   ModalBody,
-  ModalHeader,
   ModalFooter,
 } from './styles';
+import api from '../../../services/api';
 
 const fakeList = [
   {
@@ -43,23 +43,18 @@ const fakeList = [
 
 const Teacher = () => {
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [classesList, setClassesList] = useState(fakeList);
   // TODO fetch
-
-  const UserModalHeader = (
-    <ModalHeader>
-      <div className="modal-header-avatar">
-        <img src={user} alt="palestrante" />
-        <div className="modal-header-teacher">
-          <span className="modal-header-teacher-name">TODO NAME</span>
-          <span>Descrição da Palestra</span>
-        </div>
-      </div>
-      <div className="modal-header-teacher-score">
-        <span>4.5</span>
-      </div>
-    </ModalHeader>
-  );
+  useEffect(() => {
+    const fetchTalks = async () => {
+      const talks = await api.get('/talks');
+      console.log('talks', talks.data[0]);
+      setClassesList(talks.data);
+      setLoading(false);
+    };
+    fetchTalks();
+  }, []);
 
   const ModalContent = (
     <ModalBody>
@@ -87,10 +82,6 @@ const Teacher = () => {
     </ModalFooter>
   );
 
-  const handleDataModal = date => {
-    if (!date) setShowModal(true);
-  };
-
   return (
     <>
       {showModal && (
@@ -100,50 +91,58 @@ const Teacher = () => {
           Footer={UserModalFooter}
         />
       )}
-      <Container>
-        <CardList>
-          <h4>Palestras Disponíveis</h4>
-          <br />
-          {classesList.map(({ id, tecnologia, descricao, data, instrutor }) => (
-            <CardItem key={id} date={data}>
-              <div className="item-header">
-                <span>TODO Calc mes</span>
-              </div>
-              <div className="item-body">
-                <div className="item-body-avatar">
-                  <AvatarImg src={user} alt="avatar" />
+      {loading ? (
+        <OverlayLoader loading={loading} />
+      ) : (
+        <Container>
+          <CardList>
+            <h4>Palestras Disponíveis</h4>
+            <br />
+            {classesList.map(({ id, course, date, school }) => (
+              <CardItem key={id} date={date}>
+                <div className="item-header">
+                  <span>TODO Calc mes</span>
                 </div>
-                <div className="item-body-card tech-text">
-                  <span className="item-body-card-title">{tecnologia}</span>
-                  <span>{descricao}</span>
-                </div>
+                <div className="item-body">
+                  <div className="item-body-avatar">
+                    <AvatarImg src={user} alt="avatar" />
+                  </div>
+                  <div className="item-body-card tech-text">
+                    <span className="item-body-card-title">
+                      {course && course.name}
+                    </span>
+                    <span>{course && course.description}</span>
+                  </div>
 
-                <div className="item-body-card school">
-                  <span className="item-body-card-title">ESCOLA</span>
-                  <span>Escola rural do MIT</span>
-                </div>
+                  <div className="item-body-card school">
+                    <span className="item-body-card-title">ESCOLA</span>
+                    <span>Escola rural do MIT</span>
+                  </div>
 
-                <div className="item-body-card date">
-                  <span className="item-body-card-title">DATA</span>
-                  <span>{data}</span>
-                </div>
+                  <div className="item-body-card date">
+                    <span className="item-body-card-title">DATA</span>
+                    <span>{date && date.split('T')[0]}</span>
+                  </div>
 
-                <div className="item-body-card last">
-                  <span className="item-body-card-title">Endereço</span>
-                  <span>Rua do evento XYZ Pindamonhangaba SP</span>
+                  <div className="item-body-card last">
+                    <span className="item-body-card-title">Endereço</span>
+                    <span>
+                      {school && school.address}, {school && school.city}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <button
-                type="button"
-                className="join-button"
-                onClick={() => setShowModal(true)}
-              >
-                PALESTRAR
-              </button>
-            </CardItem>
-          ))}
-        </CardList>
-      </Container>
+                <button
+                  type="button"
+                  className="join-button"
+                  onClick={() => setShowModal(true)}
+                >
+                  PALESTRAR
+                </button>
+              </CardItem>
+            ))}
+          </CardList>
+        </Container>
+      )}
     </>
   );
 };
